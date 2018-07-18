@@ -30,7 +30,9 @@ switch (operation) {
 }
 
 function tweets() {
-    console.log("twitter do something");
+    request("https://api.twitter.com/1.1/search/tweets.json?q=nasa&result_type=popular", function(event) {
+        console.log(event);
+    })
 }
 
 function spotify() {
@@ -38,13 +40,15 @@ function spotify() {
 }
 
 function movie() {
-    request("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy", function (error, response, body) {
+    request("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy", function(error, response, body) {
 
         if (!error && response.statusCode === 200) {
             console.log(body);
-            console.log ("Title: " + JSON.parse(body).imdbRating);
-    }
-});
+            console.log ("The Movie rating: " + JSON.parse(body).imdbRating);
+        }
+    })
+
+};
 
    
 
