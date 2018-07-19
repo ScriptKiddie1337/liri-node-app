@@ -3,10 +3,9 @@ console.log("dotenv: ", dotenv);
 var request = require("request");
 console.log("request: ", request);
 
+
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
-console.log("spotify key: ", spotify);
-console.log("twitter key: ", client);
 
 var operation = process.argv[2];
 var input = process.argv[3];
@@ -29,7 +28,7 @@ switch (operation) {
     break;
 }
 
-function tweets() {
+/* function tweets() {
     request("https://api.twitter.com/1.1/search/tweets.json?q=nasa&result_type=popular", function(event) {
         console.log(event);
     })
@@ -37,7 +36,7 @@ function tweets() {
 
 function spotify() {
     console.log("spotify do something");
-}
+} */
 
 function movie() {
     request("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy", function(error, response, body) {
@@ -52,7 +51,7 @@ function movie() {
 
    
 
-
+/* 
 function doWhat() {
     console.log("do what it says");
-}
+} */
