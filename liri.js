@@ -1,9 +1,10 @@
 var dotenv = require("dotenv").config();
 var request = require("request");
+var keys = require("./keys.js");
 
 
-/* var spotify = new Spotify(keys.spotify);
-var client = new Twitter(keys.twitter); */
+/* var spotify = new Spotify(keys.spotify); */
+var client = new Twitter(keys.twitter); 
 
 var operation = process.argv[2];
 var input = process.argv[3];
@@ -28,14 +29,16 @@ switch (operation) {
     default:
     console.log("Liri Didn't like that, try another command! :)")
 }
+/* https://api.twitter.com/1.1/search/tweets.json?q=nasa&result_type=popular */
+ function tweets() {
+    request("https://api.twitter.com/1.1/statuses/user_timeline.json/apikey=" + client, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            console.log(body);
+        };
+    });
+};
 
-/* function tweets() {
-    request("https://api.twitter.com/1.1/search/tweets.json?q=nasa&result_type=popular", function(event) {
-        console.log(event);
-    })
-}
-
-function spotify() {
+/* function spotify() {
     console.log("spotify do something");
 } */
 
@@ -43,6 +46,7 @@ function movie() {
     request("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy", function(error, response, body) {
 
         if (!error && response.statusCode === 200) {
+            console.log ("---------------------------------------");
             console.log ("The Movie Title: " + JSON.parse(body).Title);
             console.log ("IMDB Rating: " + JSON.parse(body).imdbRating);
             console.log ("Rotten Tomatoes Score: " + JSON.parse(body).Ratings[1].Value);
@@ -50,14 +54,15 @@ function movie() {
             console.log ("Language: " + JSON.parse(body).Language);
             console.log ("Plot: " + JSON.parse(body).Plot);
             console.log ("Actors: " + JSON.parse(body).Actors);
-            console.log ("---------------------------------------")
+            console.log ("---------------------------------------");
          
-        }
-    })
+        };
+    });
 
 };
 
-   
+
+
 
 /* 
 function doWhat() {
