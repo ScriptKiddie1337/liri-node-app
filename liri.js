@@ -1,10 +1,11 @@
 var dotenv = require("dotenv").config();
 var request = require("request");
+var Twitter = require("twitter");
 const keys = require("./keys.js");
 
 
-/* var spotify = new Spotify(keys.spotify); 
-var client = new Twitter(keys.twitter); */
+/* var spotify = new Spotify(keys.spotify); */ 
+
 
 var operation = process.argv[2];
 var input = process.argv[3];
@@ -29,14 +30,27 @@ switch (operation) {
     default:
     console.log("Liri Didn't like that, try another command! :)")
 }
-/* 
+
  function tweets() {
-    request("https://api.twitter.com/1.1/statuses/user_timeline.json/apikey=" + client, function(error, response, body) {
-        if (!error && response.statusCode === 200) {
-            console.log(body);
-        };
-    });
-}; */
+    var client = new Twitter(keys.twitter); 
+    var params = {screen_name: "realDonaldTrump", count: 10};
+    client.get('statuses/user_timeline', params, function(error, tweets, response) {
+        if (error) {
+        console.log("Hello its an error: " + error);
+        console.log(client)
+  }
+        else {
+            let data = []; //empty array to hold data
+            for (let i = 0; i < tweets.length; i++) {
+                data.push({
+                    'Created at: ': tweets[i].created_at,
+                    'Tweets: ': tweets[i].text,
+                });
+            }
+            console.log(data);
+        }
+});
+}; 
 
 /* function spotify() {
     console.log("spotify do something");
